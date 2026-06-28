@@ -1,0 +1,233 @@
+/* InsideInterview AI - Professional Theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #4F46E5;
+    --primary-light: #818CF8;
+    --accent: #0EA5E9;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --bg: #0F172A;
+    --card: #1E293B;
+    --card-hover: #334155;
+    --border: #334155;
+    --text: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+}
+
+.stApp {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+#MainMenu, footer, header { visibility: hidden; }
+
+.block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1100px !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%) !important;
+    border-right: 1px solid var(--border) !important;
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-secondary) !important;
+    border-radius: 8px !important;
+    padding: 0.55rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(79, 70, 229, 0.1) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-light) !important;
+    transform: translateX(2px) !important;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+    background: rgba(79, 70, 229, 0.15) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Buttons */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #4F46E5, #4338CA) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3) !important;
+    letter-spacing: 0.01em !important;
+}
+
+.stButton > button[kind="primary"]:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4) !important;
+}
+
+.stButton > button[kind="secondary"] {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-secondary) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button[kind="secondary"]:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary-light) !important;
+}
+
+.stButton > button:disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+}
+
+/* Inputs */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    color: var(--text) !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: border-color 0.2s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15) !important;
+}
+
+.stSelectbox > div > div {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+}
+
+/* Radio */
+.stRadio > div > label {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    margin: 0.15rem 0 !important;
+    transition: all 0.15s ease !important;
+    color: var(--text-secondary) !important;
+}
+
+.stRadio > div > label:hover {
+    border-color: rgba(79, 70, 229, 0.4) !important;
+    background: rgba(79, 70, 229, 0.05) !important;
+}
+
+/* Progress */
+.stProgress > div > div > div > div {
+    background: linear-gradient(90deg, var(--primary), var(--accent)) !important;
+    border-radius: 8px !important;
+}
+
+.stProgress > div > div {
+    background: var(--border) !important;
+    border-radius: 8px !important;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+}
+
+.streamlit-expanderContent {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* File Uploader */
+[data-testid="stFileUploader"] {
+    border: 2px dashed var(--border) !important;
+    border-radius: 10px !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+    border-color: rgba(79, 70, 229, 0.4) !important;
+}
+
+/* Chat Input */
+[data-testid="stChatInput"] {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stChatInput"]:focus-within {
+    border-color: var(--primary) !important;
+}
+
+/* Download Buttons */
+.stDownloadButton > button {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-secondary) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stDownloadButton > button:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] { gap: 6px; }
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: var(--text-muted) !important;
+    font-weight: 500 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background: rgba(79, 70, 229, 0.1) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Form */
+[data-testid="stForm"] {
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    padding: 1.5rem !important;
+}
+
+hr { border-color: var(--border) !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
