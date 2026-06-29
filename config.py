@@ -7,7 +7,7 @@ import streamlit as st
 
 # ─── API Key ─────────────────────────────────────────────────
 # Priority: st.secrets (Streamlit Cloud) > env var > fallback
-def _get_api_key():
+def get_config_api_key():
     """Get API key from Streamlit secrets, environment, or fallback."""
     try:
         return st.secrets["GEMINI_API_KEY"]
@@ -16,9 +16,9 @@ def _get_api_key():
     env_key = os.environ.get("GEMINI_API_KEY", "")
     if env_key:
         return env_key
-    return "AQ.Ab8RN6LCS1QEfVr_oCfLKTcEktImQasd7z3wDmOlSmHsAKuF9g"
+    return "AQ.Ab8RN6J9uRzZzRuKXBTq7asiHRXpS4NTkJRuPM-DtGEyIf4TXg"
 
-GEMINI_API_KEY = _get_api_key()
+GEMINI_API_KEY = get_config_api_key()
 
 # ─── Job Roles ───────────────────────────────────────────────
 JOB_ROLES = [
