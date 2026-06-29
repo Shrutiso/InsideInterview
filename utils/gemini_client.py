@@ -22,6 +22,7 @@ from config import (
 # ─── SDK Setup ───────────────────────────────────────────────
 _client = None
 _sdk_mode = None
+_last_initialized_key = None
 
 # Models to try in order — if one hits quota, fall back to the next
 _MODEL_FALLBACKS = [
@@ -32,18 +33,32 @@ _MODEL_FALLBACKS = [
 ]
 
 
-def _init_sdk():
-    """Initialize the Gemini SDK (runs once)."""
-    global _client, _sdk_mode
+def _get_active_api_key():
+    """Get the active API key, prioritizing session state overrides."""
+    if st.session_state.get("custom_gemini_api_key"):
+        return st.session_state["custom_gemini_api_key"].strip()
+    return GEMINI_API_KEY
 
-    if _sdk_mode is not None:
+
+def _init_sdk():
+    """Initialize the Gemini SDK (runs on startup or key change)."""
+    global _client, _sdk_mode, _last_initialized_key
+
+    active_key = _get_active_api_key()
+
+    if _sdk_mode is not None and _last_initialized_key == active_key:
         return
+
+    # Clear previous clients if key changed
+    _client = None
+    _sdk_mode = None
 
     # Attempt 1: google-genai (newer SDK, uses Client)
     try:
         from google import genai as genai_new
-        _client = genai_new.Client(api_key=GEMINI_API_KEY)
+        _client = genai_new.Client(api_key=active_key)
         _sdk_mode = "genai_client"
+        _last_initialized_key = active_key
         return
     except (ImportError, AttributeError):
         pass
@@ -51,9 +66,10 @@ def _init_sdk():
     # Attempt 2: google-generativeai (older SDK)
     try:
         import google.generativeai as genai_old
-        genai_old.configure(api_key=GEMINI_API_KEY)
+        genai_old.configure(api_key=active_key)
         _client = genai_old
         _sdk_mode = "generativeai"
+        _last_initialized_key = active_key
         return
     except (ImportError, Exception) as e:
         raise ImportError(
@@ -123,18 +139,37 @@ def _generate_content(prompt, max_retries=3, initial_delay=5.0):
                 # Non-retryable error — raise immediately
                 raise e
 
-    # All models exhausted
+    # All models exhausted or key invalid
     error_msg = str(last_error)
-    if "quota" in error_msg.lower() or "429" in error_msg or "exhausted" in error_msg.lower():
+    err_str = error_msg.lower()
+
+    is_quota_error = any(
+        kw in err_str
+        for kw in ("exhausted", "429", "quota", "resource_exhausted")
+    )
+
+    is_key_invalid = any(
+        kw in err_str
+        for kw in ("key_invalid", "api key invalid", "invalid key", "api_key_invalid", "unauthorized", "api key not valid", "400")
+    )
+
+    if is_quota_error:
         raise RuntimeError(
-            "⚠️ Gemini API quota exhausted for ALL models. "
-            "This means your API key has hit its free-tier rate limit.\n\n"
+            "⚠️ Gemini API quota exhausted for ALL models.\n"
+            "This means your API key has hit its rate limit.\n\n"
+            "**To fix this:**\n"
+            "1. Go to the sidebar under **API Key Settings**.\n"
+            "2. Paste a new Gemini API key (starts with 'AQ.' or 'AIzaSy').\n"
+            "3. Or wait 1-2 minutes for the rate limit to reset.\n\n"
+            f"Original error: {error_msg}"
+        )
+    elif is_key_invalid:
+        raise RuntimeError(
+            "⚠️ Invalid Gemini API Key.\n\n"
             "**To fix this:**\n"
             "1. Go to https://aistudio.google.com/apikey\n"
-            "2. Generate a NEW API key (it should start with 'AIza...')\n"
-            "3. Update the key in Streamlit Cloud → Settings → Secrets:\n"
-            '   `GEMINI_API_KEY = "AIza...your-new-key..."`\n'
-            "4. Or wait 1-2 minutes for the rate limit to reset.\n\n"
+            "2. Generate a NEW API key (starts with 'AQ.' or 'AIzaSy').\n"
+            "3. Paste it in the sidebar under **API Key Settings**.\n\n"
             f"Original error: {error_msg}"
         )
     raise last_error
