@@ -50,15 +50,15 @@ Paste your Gemini API key and save it.
 
 Once the API key is configured, all features of InsideInterview will work seamlessly, including:
 
-✅ Personalized Assessments
+ Personalized Assessments
 
-✅ Resume Analysis
+ Resume Analysis
 
-✅ Mock Interviews
+ Mock Interviews
 
-✅ AI Interview Coach
+ AI Interview Coach
 
-✅ Dashboard & Analytics
+ Dashboard & Analytics
 
 ---
 
