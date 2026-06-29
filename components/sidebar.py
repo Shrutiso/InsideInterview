@@ -130,9 +130,46 @@ def render_sidebar():
 
             st.markdown("---")
 
+        # API Key Settings
+        st.markdown(
+            f"<p style='color:{COLORS['text_muted']}; font-size:0.65rem; "
+            f"text-transform:uppercase; letter-spacing:2px; margin-bottom:0.5rem; font-weight: 600;'>"
+            f"API Key Settings</p>",
+            unsafe_allow_html=True,
+        )
+
+        with st.expander("Configure Key", expanded=False):
+            user_key = st.text_input(
+                "Gemini API Key",
+                key="custom_gemini_api_key",
+                type="password",
+                placeholder="AQ... or AIzaSy...",
+                help="Google Gemini API Key from AI Studio. Both 'AQ.' (new) and 'AIzaSy' (old) key formats are supported."
+            )
+
+            if user_key:
+                cleaned_key = user_key.strip()
+                if cleaned_key != user_key:
+                    st.session_state["custom_gemini_api_key"] = cleaned_key
+                    st.rerun()
+
+                if cleaned_key.startswith("AQ.") or cleaned_key.startswith("AIzaSy"):
+                    st.success("Valid format detected! (AQ. or AIzaSy)")
+                else:
+                    st.warning("Warning: key should start with 'AQ.' or 'AIzaSy'.")
+
+                if st.button("Reset to Default Key", use_container_width=True):
+                    st.session_state["custom_gemini_api_key"] = ""
+                    st.rerun()
+            else:
+                st.info("Using default system key.")
+
+        st.markdown("---")
+
         # Reset
         if st.button("Reset Session", use_container_width=True):
             for key in list(st.session_state.keys()):
-                del st.session_state[key]
+                if key != "custom_gemini_api_key":
+                    del st.session_state[key]
             st.session_state["current_page"] = "Home"
             st.rerun()
