@@ -3,6 +3,68 @@
 
 🔗 **Live Demo:** https://insideinterview.streamlit.app/
 
+## 🚀 Running the Project from the Live Demo
+
+**Live Demo:** https://insideinterview.streamlit.app/
+
+### Before You Start
+
+Due to usage limits and security restrictions of the Google Gemini API, users need to provide their **own Gemini API Key** to use the AI-powered features of the application.
+
+Without configuring the API key, features such as:
+
+* AI Assessments
+* Resume Analysis
+* Mock Interviews
+* AI Career Coach
+* Personalized Roadmaps
+
+will not function.
+
+---
+
+### Steps to Run the Application
+
+#### Step 1: Open the Live Demo
+
+Visit:
+
+```text
+https://insideinterview.streamlit.app/
+```
+
+#### Step 2: Generate Your Gemini API Key
+
+1. Visit: https://aistudio.google.com/app/apikey
+2. Sign in with your Google account.
+3. Click **Create API Key**.
+4. Copy the generated API key.
+
+#### Step 3: Configure the API Key
+
+Inside the application, click on **Configure API Key** from the sidebar or settings section.
+
+Paste your Gemini API key and save it.
+
+#### Step 4: Start Using the Platform
+
+Once the API key is configured, all features of InsideInterview will work seamlessly, including:
+
+✅ Personalized Assessments
+
+✅ Resume Analysis
+
+✅ Mock Interviews
+
+✅ AI Interview Coach
+
+✅ Dashboard & Analytics
+
+---
+
+> **Note:** The API key is used only for making requests to Google's Gemini API and is not stored permanently by the application. Users can replace their API key at any time.
+
+
 ---
 
 # 📌 Overview
